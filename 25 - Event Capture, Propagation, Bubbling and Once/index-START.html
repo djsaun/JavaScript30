@@ -39,7 +39,30 @@
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
 
+  function logText(e) {
+    // e.stopPropagation();
+    console.log(this.classList.value);
+  }
+
+  // By default, JS captures events on the way down and then bubbles up
+  // The results are displayed from the inside out
+  divs.forEach(div => div.addEventListener('click', logText, {
+    // If capture is set to true, then the results are displayed on the way in
+    capture: false,
+    // If once is set to true, it will listen for a click and unbind itself
+    // Unbinding itself is the same thing as element.removeEventListener
+    once: true
+  }));
+
+  // Should only be able to click the button once and then never again (until you refresh the page)
+  button.addEventListener('click', () => {
+    console.log('click');
+  }, {
+    once: true
+  });
 </script>
 </body>
 </html>
